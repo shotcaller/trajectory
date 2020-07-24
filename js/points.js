@@ -86,7 +86,7 @@ newPoints.prototype.cross = function (a, b, o) {
 newPoints.prototype.showTimeSelection = function () {
 
     this.timeSelect = createSelect()
-    this.timeSelect.position(300, 660)
+    this.timeSelect.position(300, canvHeight+30)
 
     jsonData.time.forEach(element => {
         this.timeSelect.option(new Date(element * 1000).toUTCString().slice(5))
@@ -104,7 +104,7 @@ newPoints.prototype.showTimeSelection = function () {
 
 newPoints.prototype.showInputBox = function (){
     this.trajInput = createInput()
-    this.trajInput.position(10, 660);
+    this.trajInput.position(10, canvHeight+30);
     trajInputButton = createButton('Show');
     trajInputButton.position(this.trajInput.x+this.trajInput.width, 660);
     trajInputButton.mousePressed(() => {
@@ -118,11 +118,11 @@ newPoints.prototype.showInputBox = function (){
 
 newPoints.prototype.showAnimateButton = function () {
     this.animeButt = createButton('All Traj Animate');
-    this.animeButt.position(500, 660);
+    this.animeButt.position(500, canvHeight+30);
     this.animeButt.mousePressed(() => {
         this.animeInterval = setInterval(() => {
             this.showAnimation(0);
-        }, 50);
+        }, 100);
     });
 }
 

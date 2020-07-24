@@ -1,8 +1,10 @@
 
 let lup = false;
+let canvWidth = 1900
+let canvHeight = 800
 
 function setup(){
-    canvas = createCanvas(640, 640);
+    canvas = createCanvas(canvWidth, canvHeight);
     // background(200)
 
     // area1 = new searchArea(320, 320, 300, 10)
