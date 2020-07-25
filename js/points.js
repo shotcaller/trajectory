@@ -1,7 +1,4 @@
 function newPoints(canv, map) {
-    this.canvas = canv;
-    this.myMap = map
-
     this.p5Coords = [];
     this.hullCoords = [];
 
@@ -17,6 +14,8 @@ function newPoints(canv, map) {
     this.animeInterval;
 
     this.rectCoords = [];
+
+    this.squares = []
 }
 
 newPoints.prototype.plotPoints = function () {
@@ -34,7 +33,7 @@ newPoints.prototype.plotPoints = function () {
         this.drawRect();
         this.findHull();
 
-        this.drawSquares();
+        // this.drawSquares();
 
     } else {
         for (i = 0; i < jsonData.time.length; i++) {
@@ -105,8 +104,9 @@ newPoints.prototype.showTimeSelection = function () {
 newPoints.prototype.showInputBox = function (){
     this.trajInput = createInput()
     this.trajInput.position(10, canvHeight+30);
+
     trajInputButton = createButton('Show');
-    trajInputButton.position(this.trajInput.x+this.trajInput.width, 660);
+    trajInputButton.position(this.trajInput.x+this.trajInput.width, canvHeight+30);
     trajInputButton.mousePressed(() => {
         if(this.trajInput.value() != 'all')
             this.currentTraj = int(this.trajInput.value());
@@ -127,7 +127,7 @@ newPoints.prototype.showAnimateButton = function () {
 }
 
 newPoints.prototype.showAnimation = function () {
-    clear();
+    // clear();
 
     this.p5Coords = [];
 
@@ -137,8 +137,8 @@ newPoints.prototype.showAnimation = function () {
         ellipse(this.p5Coords[j].x, this.p5Coords[j].y, 1, 1);
     }
 
-    this.findHull();
-    this.drawRect();
+    // this.findHull();
+    // this.drawRect();
     // this.drawSquares();
 
     this.animeI++;
@@ -162,30 +162,44 @@ newPoints.prototype.drawRect = function(){
         yMax = (element.y > yMax) ? element.y : yMax
     })
 
-    this.rectCoords = [xMin, yMin, xMax, yMax]
+    tempLl = myMap.pixelToLatLng(xMin, yMin);
+    tempLl.lat += 0.1;
+    tempLl.lng -= 0.1;
+    tempPlMin = myMap.latLngToPixel(tempLl.lat, tempLl.lng)
+
+    tempLl = myMap.pixelToLatLng(xMax, yMax);
+    tempLl.lat -= 0.1;
+    tempLl.lng += 0.1;
+    tempPlMax = myMap.latLngToPixel(tempLl.lat, tempLl.lng)
+
+    this.rectCoords = [tempPlMin.x, tempPlMin.y, tempPlMax.x, tempPlMax.y]
 
     rectMode(CORNERS)
     noFill()
     rect(this.rectCoords[0], this.rectCoords[1],this.rectCoords[2], this.rectCoords[3])
 }
 
-newPoints.prototype.drawSquares = function(){
-    distHor = abs(this.rectCoords[0]-this.rectCoords[2])
-    distVer = abs(this.rectCoords[1] - this.rectCoords[3])
+// newPoints.prototype.drawSquares = function(){
+//     x2Ll = myMap.pixelToLatLng(this.rectCoords[0], this.rectCoords[3])
+//     x3Ll = myMap.pixelToLatLng(this.rectCoords[2], this.rectCoords[1])
 
-    // for(i = this.rectCoords[0]; i < this.rectCoords[2];)
-    //     for(j = this.rectCoords[1]; j < this.rectCoords[3];){
+//     this.squares = [];
+//     offsetN = 0.1;
+//     for(p0Ll = { lat : x3Ll.lat, lng : x2Ll.lng} ; p0Ll.lat >= x2Ll.lat; p0Ll.lng = x2Ll.lng, p0Ll.lat -= offsetN )
 
-    //     }
+//         for(; p0Ll.lng <= x3Ll.lng; p0Ll.lng += offsetN){
+//             p1Ll = {lat : p0Ll.lat, lng : (p0Ll.lng + offsetN)}
+//             p1Px = myMap.latLngToPixel(p1Ll.lat, p1Ll.lng);
 
-        tempLl = myMap.pixelToLatLng(this.rectCoords[0], this.rectCoords[1])
-        console.log(this.rectCoords[0], this.rectCoords[1])
-        console.log(tempLl)
-        tempLl.lng += 0.001;
-        // tempLl.lat += 0.1;
-        console.log(tempLl)
+//             p0Px = myMap.latLngToPixel(p0Ll.lat, p0Ll.lng);
 
-        tempPix = myMap.latLngToPixel(tempLl.lat, tempLl.lng)
-        console.log(tempPix.x, tempPix.y)
-        console.log(abs(tempPix.x-this.rectCoords[0]))
-}
+//             pixelOffset = abs(p1Px.x - p0Px.x)
+
+//             this.squares.push(new FoV(p0Px.x, p0Px.y, pixelOffset, 0))
+//         }
+
+//     this.squares.forEach(element => {
+//         element.draw();
+//     })
+
+// }
