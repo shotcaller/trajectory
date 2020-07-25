@@ -1,7 +1,7 @@
 
 let lup = false;
-let canvWidth = 1900
-let canvHeight = 800
+let canvWidth = 900
+let canvHeight = 850
 
 function setup(){
     canvas = createCanvas(canvWidth, canvHeight);
