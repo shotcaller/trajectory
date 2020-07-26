@@ -1,4 +1,6 @@
-function newPoints(canv, map) {
+function newPoints() {
+    this.p5 = canvas._pInst
+
     this.p5Coords = [];
     this.hullCoords = [];
 
@@ -19,7 +21,7 @@ function newPoints(canv, map) {
 }
 
 newPoints.prototype.plotPoints = function () {
-    clear();
+    this.p5.clear();
     this.p5Coords = [];
 
     if (this.currentTraj == 'all') {
@@ -27,8 +29,8 @@ newPoints.prototype.plotPoints = function () {
 
             this.p5Coords.push(myMap.latLngToPixel(jsonData.lat[k + this.timeSelect.elt.selectedIndex], jsonData.lon[k + this.timeSelect.elt.selectedIndex]));
             // fill(k * 3, k * 5, k * 2)
-            noFill();
-            ellipse(this.p5Coords[i].x, this.p5Coords[i].y, 2, 2)
+            this.p5.noFill();
+            this.p5.ellipse(this.p5Coords[i].x, this.p5Coords[i].y, 2, 2)
         }
         this.drawRect();
         this.findHull();
@@ -69,13 +71,13 @@ newPoints.prototype.findHull = function(){
         this.hullCoords = [];
         this.hullCoords = L.concat(U);
 
-        fill(255, 20, 200, 40);
-        beginShape();
+        this.p5.fill(255, 20, 200, 40);
+        this.p5.beginShape();
 
         for (i = 0; i < this.hullCoords.length; i++)
-            vertex(this.hullCoords[i].x, this.hullCoords[i].y);
+        this.p5.vertex(this.hullCoords[i].x, this.hullCoords[i].y);
 
-        endShape(CLOSE);
+        this.p5.endShape(this.p5.CLOSE);
 }
 
 newPoints.prototype.cross = function (a, b, o) {
@@ -84,8 +86,8 @@ newPoints.prototype.cross = function (a, b, o) {
 
 newPoints.prototype.showTimeSelection = function () {
 
-    this.timeSelect = createSelect()
-    this.timeSelect.position(300, canvHeight+30)
+    this.timeSelect = this.p5.createSelect()
+    this.timeSelect.position(300, canvas.height+30)
 
     jsonData.time.forEach(element => {
         this.timeSelect.option(new Date(element * 1000).toUTCString().slice(5))
@@ -102,11 +104,11 @@ newPoints.prototype.showTimeSelection = function () {
 }
 
 newPoints.prototype.showInputBox = function (){
-    this.trajInput = createInput()
-    this.trajInput.position(10, canvHeight+30);
+    this.trajInput = this.p5.createInput()
+    this.trajInput.position(10, canvas.height+30);
 
-    trajInputButton = createButton('Show');
-    trajInputButton.position(this.trajInput.x+this.trajInput.width, canvHeight+30);
+    trajInputButton = this.p5.createButton('Show');
+    trajInputButton.position(this.trajInput.x+this.trajInput.width, canvas.height+30);
     trajInputButton.mousePressed(() => {
         if(this.trajInput.value() != 'all')
             this.currentTraj = int(this.trajInput.value());
@@ -117,8 +119,8 @@ newPoints.prototype.showInputBox = function (){
 }
 
 newPoints.prototype.showAnimateButton = function () {
-    this.animeButt = createButton('All Traj Animate');
-    this.animeButt.position(500, canvHeight+30);
+    this.animeButt = this.p5.createButton('All Traj Animate');
+    this.animeButt.position(500, canvas.height+30);
     this.animeButt.mousePressed(() => {
         this.animeInterval = setInterval(() => {
             this.showAnimation(0);
@@ -134,7 +136,7 @@ newPoints.prototype.showAnimation = function () {
     for (j = k = 0; j < jsonData.trajectory.length; j++, k += jsonData.time.length) {
 
         this.p5Coords.push(myMap.latLngToPixel(jsonData.lat[k + this.animeI], jsonData.lon[k + this.animeI]));
-        ellipse(this.p5Coords[j].x, this.p5Coords[j].y, 1, 1);
+        this.p5.ellipse(this.p5Coords[j].x, this.p5Coords[j].y, 1, 1);
     }
 
     // this.findHull();
@@ -174,32 +176,17 @@ newPoints.prototype.drawRect = function(){
 
     this.rectCoords = [tempPlMin.x, tempPlMin.y, tempPlMax.x, tempPlMax.y]
 
-    rectMode(CORNERS)
-    noFill()
-    rect(this.rectCoords[0], this.rectCoords[1],this.rectCoords[2], this.rectCoords[3])
+    this.p5.rectMode(this.p5.CORNERS)
+    this.p5.noFill()
+    this.p5.rect(this.rectCoords[0], this.rectCoords[1],this.rectCoords[2], this.rectCoords[3])
 }
 
-// newPoints.prototype.drawSquares = function(){
-//     x2Ll = myMap.pixelToLatLng(this.rectCoords[0], this.rectCoords[3])
-//     x3Ll = myMap.pixelToLatLng(this.rectCoords[2], this.rectCoords[1])
-
-//     this.squares = [];
-//     offsetN = 0.1;
-//     for(p0Ll = { lat : x3Ll.lat, lng : x2Ll.lng} ; p0Ll.lat >= x2Ll.lat; p0Ll.lng = x2Ll.lng, p0Ll.lat -= offsetN )
-
-//         for(; p0Ll.lng <= x3Ll.lng; p0Ll.lng += offsetN){
-//             p1Ll = {lat : p0Ll.lat, lng : (p0Ll.lng + offsetN)}
-//             p1Px = myMap.latLngToPixel(p1Ll.lat, p1Ll.lng);
-
-//             p0Px = myMap.latLngToPixel(p0Ll.lat, p0Ll.lng);
-
-//             pixelOffset = abs(p1Px.x - p0Px.x)
-
-//             this.squares.push(new FoV(p0Px.x, p0Px.y, pixelOffset, 0))
-//         }
-
-//     this.squares.forEach(element => {
-//         element.draw();
-//     })
-
-// }
+newPoints.prototype.showAnimateButton = function () {
+    this.animeButt = this.p5.createButton('All Traj Animate');
+    this.animeButt.position(500, canvas.height+30);
+    this.animeButt.mousePressed(() => {
+        this.animeInterval = setInterval(() => {
+            this.showAnimation(0);
+        }, 100);
+    });
+}
