@@ -1,56 +1,74 @@
+let leftCanvas = new p5((lCanvas) => {
+    let lup = false;
 
-let lup = false;
-let canvWidth = 900
-let canvHeight = 850
+    lCanvas.setup = function(){
 
-function setup(){
-    canvas = createCanvas(canvWidth, canvHeight);
-    // background(200)
+        let canvWidth = 900
+        let canvHeight = 850
 
-    // area1 = new searchArea(320, 320, 300, 10)
-    // area1.generateFoVs()
+        canvas = lCanvas.createCanvas(canvWidth, canvHeight);
+
+        // background(200)
+
+        // area1 = new searchArea(320, 320, 300, 10)
+        // area1.generateFoVs()
+
+        canvas.position(0, 0)
+        initMap(canvas);
+
+        nPts = new newPoints()
+        nPts.showTimeSelection();
+        nPts.showInputBox();
+        nPts.showAnimateButton();
+        // nPts.showExportButton();
+
+        myMap.onChange(()=>{
+            nPts.plotPoints()
+        });
 
 
-    initMap(canvas);
+        lCanvas.frameRate(120);
+        lCanvas.fill(200, 100, 100);
+        // noLoop();
+    }
 
-    nPts = new newPoints(canvas, myMap)
-    nPts.showTimeSelection();
-    nPts.showInputBox();
-    nPts.showAnimateButton();
+    lCanvas.draw = function(){
+        // // clear()
+        // area1.FoVs.forEach(x=>{x.forEach(y=>{y.draw()})});
+        // area1.draw();
+        // area1.drawBoundary();
+    }
 
-    myMap.onChange(()=>{
-        nPts.plotPoints()
-    });
+    function initMap(canvas){
+        myMap = new Mappa('Leaflet').tileMap({
+            lat : jsonData.lat[0],
+            lng : jsonData.lon[0],
+            zoom : 9,
+            style : "http://{s}.tile.osm.org/{z}/{x}/{y}.png"
+        });
 
+        myMap.overlay(canvas);
+    }
 
-    frameRate(120);
-    fill(200, 100, 100);
-    // noLoop();
-}
+    function mousePressed(){
+        // lup = !lup
+        // if(lup)
+        // loop()
+        // else noLoop()
+        // area1.updateProbabilities(mouseX, mouseY, 1, 0.05)
 
-function draw(){
-    // // clear()
-    // area1.FoVs.forEach(x=>{x.forEach(y=>{y.draw()})});
-    // area1.draw();
-    // area1.drawBoundary();
-}
+    }
+})
 
-function initMap(canvas){
-    myMap = new Mappa('Leaflet').tileMap({
-        lat : jsonData.lat[0],
-        lng : jsonData.lon[0],
-        zoom : 9,
-        style : "http://{s}.tile.osm.org/{z}/{x}/{y}.png"
-    });
+let rightCanvas = new p5((rCanvas) => {
+    rCanvas.setup = function(){
+        let  canvWidth = 900, canvHeight = 850;
+        canvas = rCanvas.createCanvas(canvWidth, canvHeight)
+        canvas.position(950, 10)
+        rCanvas.background(200)
+    }
 
-    myMap.overlay(canvas);
-}
+    rCanvas.draw = function(){
 
-function mousePressed(){
-    // lup = !lup
-    // if(lup)
-    // loop()
-    // else noLoop()
-    // area1.updateProbabilities(mouseX, mouseY, 1, 0.05)
-
-}
+    }
+})
