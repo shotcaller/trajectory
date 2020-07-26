@@ -12,7 +12,7 @@ let leftCanvas = new p5((lCanvas) => {
 
         // area1 = new searchArea(320, 320, 300, 10)
         // area1.generateFoVs()
-
+        
         canvas.position(0, 0)
         initMap(canvas);
 
