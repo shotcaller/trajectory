@@ -16,8 +16,6 @@ function newPoints() {
     this.animeInterval;
 
     this.rectCoords = [];
-
-    this.squares = []
 }
 
 newPoints.prototype.plotPoints = function () {
@@ -138,7 +136,7 @@ newPoints.prototype.showAnimation = function () {
         this.p5Coords.push(myMap.latLngToPixel(jsonData.lat[k + this.animeI], jsonData.lon[k + this.animeI]));
         this.p5.ellipse(this.p5Coords[j].x, this.p5Coords[j].y, 1, 1);
     }
-
+    postProc.updateCanvas();
     // this.findHull();
     // this.drawRect();
     // this.drawSquares();
@@ -179,14 +177,4 @@ newPoints.prototype.drawRect = function(){
     this.p5.rectMode(this.p5.CORNERS)
     this.p5.noFill()
     this.p5.rect(this.rectCoords[0], this.rectCoords[1],this.rectCoords[2], this.rectCoords[3])
-}
-
-newPoints.prototype.showAnimateButton = function () {
-    this.animeButt = this.p5.createButton('All Traj Animate');
-    this.animeButt.position(500, canvas.height+30);
-    this.animeButt.mousePressed(() => {
-        this.animeInterval = setInterval(() => {
-            this.showAnimation(0);
-        }, 100);
-    });
 }
