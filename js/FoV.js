@@ -1,4 +1,5 @@
 function FoV(squareX, squareY, side, probability){
+    this.p5 = canvas._pInst;
     this.squareX = squareX
     this.squareY = squareY
     this.side = side
@@ -6,12 +7,12 @@ function FoV(squareX, squareY, side, probability){
 }
 
 FoV.prototype.draw = function(){
-    strokeWeight(1)
-    stroke(0, 60)
+    this.p5.strokeWeight(1)
+    this.p5.stroke(0, 60)
     // noStroke()
-    colorMode(HSB, 100)
-    fill((1-this.probability)*70, 100, 100, 8);
-    rectMode(CORNER)
-    square(this.squareX, this.squareY, this.side)
-    colorMode(RGB)
+    this.p5.colorMode(this.p5.HSB, 100)
+    this.p5.fill((1-this.probability)*70, 100, 100, 8);
+    this.p5.rectMode(this.p5.CORNER)
+    this.p5.square(this.squareX, this.squareY, this.side)
+    this.p5.colorMode(this.p5.RGB)
 }

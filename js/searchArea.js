@@ -1,4 +1,6 @@
 function searchArea(circleX, circleY, radius, FoVRange){
+    this.p5 = canvas._pInst;
+
     this.circleX = circleX
     this.circleY = circleY
     this.radius = radius
@@ -8,17 +10,17 @@ function searchArea(circleX, circleY, radius, FoVRange){
 }
 
 searchArea.prototype.draw = function(){
-    noFill()
-    strokeWeight(2)
-    stroke(0,0,255)
-    circle(this.circleX, this.circleY, this.radius*2)
+    this.p5.noFill()
+    this.p5.strokeWeight(2)
+    this.p5.stroke(0,0,255)
+    this.p5.circle(this.circleX, this.circleY, this.radius*2)
 }
 
 searchArea.prototype.drawBoundary = function(){
-    noFill()
-    strokeWeight(2)
-    stroke(0,0,255)
-    square(this.circleX-this.radius, this.circleY-this.radius , this.radius*2)
+    this.p5.noFill()
+    this.p5.strokeWeight(2)
+    this.p5.stroke(0,0,255)
+    this.p5.square(this.circleX-this.radius, this.circleY-this.radius , this.radius*2)
 }
 
 searchArea.prototype.generateFoVs = function(){
@@ -94,7 +96,7 @@ searchArea.prototype.updateProbabilities = function(x, y, startProb, desc){
         for(j=0;startY+j*this.range < y;++j);
 
         this.ripple(i-1, j-1, startProb, desc)
-        redraw()
+        this.p5.redraw()
     }
 
 }
