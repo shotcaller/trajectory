@@ -1,4 +1,3 @@
-// let postProcessing = new postProcCanvas();
 let nPts, postProc, leftCanvas, rightCanvas;
 
 leftCanvas = new p5(
