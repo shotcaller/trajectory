@@ -58,6 +58,6 @@ postProcCanvas.prototype.showExportButton = function () {
 }
 
 postProcCanvas.prototype.drawPath = function(){
-    let p = new zigZagPath(this.rectCoords[0], this.rectCoords[1], 400, 10, 100, 0);
-    p.draw();
+    let p = new paths();
+    p.drawZigZag(this.rectCoords[0], this.rectCoords[1], 400, 10, 100, 0);
 }
