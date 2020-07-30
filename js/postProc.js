@@ -9,12 +9,15 @@ postProcCanvas.prototype.initCanv = function(){
 }
 
 postProcCanvas.prototype.plotPoints = function(){
+    this.p5.stroke(1)
     this.pointsCoords.forEach(element => {
         this.p5.ellipse(element.x, element.y, 2, 2);
     });
 }
 
 postProcCanvas.prototype.drawHull = function(){
+    this.p5.stroke(1)
+
     this.p5.fill(255, 20, 200, 40);
     this.p5.beginShape();
 
@@ -26,6 +29,8 @@ postProcCanvas.prototype.drawHull = function(){
 }
 
 postProcCanvas.prototype.drawRect = function(){
+    this.p5.stroke(1)
+
     this.p5.rectMode(this.p5.CORNERS)
     this.p5.noFill()
     this.p5.rect(this.rectCoords[0], this.rectCoords[1],this.rectCoords[2], this.rectCoords[3])
@@ -40,6 +45,7 @@ postProcCanvas.prototype.updateCanvas = function (){
     this.drawHull();
     this.drawRect();
     this.plotPoints();
+    this.drawPath();
 }
 
 postProcCanvas.prototype.showExportButton = function () {
@@ -49,4 +55,9 @@ postProcCanvas.prototype.showExportButton = function () {
     exportButton.mousePressed(() => {
         this.updateCanvas();
     });
+}
+
+postProcCanvas.prototype.drawPath = function(){
+    let p = new zigZagPath(this.rectCoords[0], this.rectCoords[1], 400, 10, 100, 0);
+    p.draw();
 }

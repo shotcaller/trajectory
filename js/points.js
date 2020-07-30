@@ -32,7 +32,7 @@ newPoints.prototype.plotPoints = function () {
         }
         this.drawRect();
         this.findHull();
-
+        postProc.updateCanvas();
         // this.drawSquares();
 
     } else {
@@ -127,7 +127,7 @@ newPoints.prototype.showAnimateButton = function () {
 }
 
 newPoints.prototype.showAnimation = function () {
-    // clear();
+    this.p5.clear();
 
     this.p5Coords = [];
 
@@ -136,8 +136,8 @@ newPoints.prototype.showAnimation = function () {
         this.p5Coords.push(myMap.latLngToPixel(jsonData.lat[k + this.animeI], jsonData.lon[k + this.animeI]));
         this.p5.ellipse(this.p5Coords[j].x, this.p5Coords[j].y, 1, 1);
     }
+    this.findHull();
     postProc.updateCanvas();
-    // this.findHull();
     // this.drawRect();
     // this.drawSquares();
 

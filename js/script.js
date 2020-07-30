@@ -54,9 +54,9 @@ rightCanvas = new p5(
             canvas.position(950, 10)
             rCanvas.background(200)
 
-            area1 = new searchArea(320, 320, 300, 10)
-            area1.generateFoVs()
-            zz = new zigZagPath(100, 100, 200, 10, 40, 35);
+            // area1 = new searchArea(320, 320, 300, 10)
+            // area1.generateFoVs()
+            // zz = new zigZagPath(100, 100, 200, 10, 40, 35);
 
             postProc = new postProcCanvas()
             postProc.showExportButton()
@@ -65,11 +65,11 @@ rightCanvas = new p5(
         }
 
         rCanvas.draw = function(){
-            rCanvas.clear()
-            area1.FoVs.forEach(x=>{x.forEach(y=>{y.draw()})});
-            area1.draw();
-            area1.drawBoundary();
-            zz.draw();
+            // rCanvas.clear()
+            // area1.FoVs.forEach(x=>{x.forEach(y=>{y.draw()})});
+            // area1.draw();
+            // area1.drawBoundary();
+            // zz.draw();
         }
 
         function mousePressed(){
