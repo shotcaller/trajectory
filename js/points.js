@@ -16,6 +16,8 @@ function newPoints() {
     this.animeInterval;
 
     this.rectCoords = [];
+
+    this.side;
 }
 
 newPoints.prototype.plotPoints = function () {
@@ -30,8 +32,8 @@ newPoints.prototype.plotPoints = function () {
             this.p5.noFill();
             this.p5.ellipse(this.p5Coords[i].x, this.p5Coords[i].y, 2, 2)
         }
-        this.drawRect();
         this.findHull();
+        this.drawRect();
         postProc.updateCanvas();
         // this.drawSquares();
 
@@ -137,9 +139,8 @@ newPoints.prototype.showAnimation = function () {
         this.p5.ellipse(this.p5Coords[j].x, this.p5Coords[j].y, 1, 1);
     }
     this.findHull();
+    this.drawRect();
     postProc.updateCanvas();
-    // this.drawRect();
-    // this.drawSquares();
 
     this.animeI++;
 
@@ -155,22 +156,25 @@ newPoints.prototype.drawRect = function(){
 
     let xMin = yMin = 99999999, xMax = yMax = 0;
 
-    this.p5Coords.forEach(element => {
+    this.hullCoords.forEach(element => {
         xMin = (element.x < xMin ) ? element.x : xMin
         xMax = (element.x > xMax) ? element.x : xMax
         yMin = (element.y < yMin) ? element.y : yMin
         yMax = (element.y > yMax) ? element.y : yMax
     })
+    this.side = 1000;
 
     tempLl = myMap.pixelToLatLng(xMin, yMin);
-    tempLl.lat += 0.1;
-    tempLl.lng -= 0.1;
+    tempLl.lat += (this.side / 11100);
+    tempLl.lng -= (this.side / 11100);
     tempPlMin = myMap.latLngToPixel(tempLl.lat, tempLl.lng)
 
     tempLl = myMap.pixelToLatLng(xMax, yMax);
-    tempLl.lat -= 0.1;
-    tempLl.lng += 0.1;
+    tempLl.lat -= (this.side / 11100);
+    tempLl.lng += (this.side / 11100);
     tempPlMax = myMap.latLngToPixel(tempLl.lat, tempLl.lng)
+
+    this.sideOffset = tempPlMax.x - xMax;
 
     this.rectCoords = [tempPlMin.x, tempPlMin.y, tempPlMax.x, tempPlMax.y]
 
