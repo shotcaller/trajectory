@@ -11,7 +11,7 @@ FoV.prototype.draw = function(){
     this.p5.stroke(0, 60)
     // noStroke()
     this.p5.colorMode(this.p5.HSB, 100)
-    this.p5.fill((1-this.probability)*70, 100, 100, 8);
+    this.p5.fill((1-this.probability)*70, 100, 100);
     this.p5.rectMode(this.p5.CORNER)
     this.p5.square(this.squareX, this.squareY, this.side)
     this.p5.colorMode(this.p5.RGB)
