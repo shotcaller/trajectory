@@ -47,12 +47,16 @@ postProcCanvas.prototype.updateCanvas = function (){
 }
 
 postProcCanvas.prototype.showExportButton = function () {
-    exportButton = this.p5.createButton('Export');
-    exportButton.position(800, canvas.height+30);
+    // exportButton = this.p5.createButton('Export');
+    // exportButton.position(800, canvas.height+30);
+    // exportButton.style('background-color', '#3a3a3a')
+    exportButton = document.querySelector('#export')
 
-    exportButton.mousePressed(() => {
+    exportButton.onclick  = () => {
+        console.log('EXpORT')
+
         this.updateCanvas();
-    });
+    };
 }
 
 postProcCanvas.prototype.drawPath = function(){

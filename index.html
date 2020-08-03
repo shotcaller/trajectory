@@ -2,10 +2,14 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
         <title>विमान शोध सेवा</title>
+        <link rel="stylesheet" href="./css//index.css">
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
 
         <script language="javascript" type="text/javascript" src="./js/libraries/p5.js"></script>
 
@@ -24,5 +28,24 @@
     </head>
 
     <body>
+       
+        <div id="wrapper" class="container">
+            <input type="text" id="input" />
+            <button id="show" class="btn bg-light">Show</button>
+            <button id="animate" class="btn bg-light">Animate Trajectory </button>
+             <button id="export" class="btn bg-info rounded">EXPORT</button>
+        <!-- <select name="time" id="timeSelect" ></select> -->
+    </div>
+
+    <div id="search-wrapper" class="container">
+        <button class="btn bg-secondary ml-3 traj">Expanding Square</button>
+        <button class="btn bg-secondary ml-3 traj">Parallel Sweep</button>
+        <button class="btn bg-secondary ml-3 traj">Sector</button>
+    </div>
+
+        <!-- Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     </body>
 </html>

@@ -34,7 +34,7 @@ newPoints.prototype.plotPoints = function () {
         }
         this.findHull();
         this.drawRect();
-        postProc.updateCanvas();
+        //postProc.updateCanvas();
         // this.drawSquares();
 
     } else {
@@ -87,7 +87,7 @@ newPoints.prototype.cross = function (a, b, o) {
 newPoints.prototype.showTimeSelection = function () {
 
     this.timeSelect = this.p5.createSelect()
-    this.timeSelect.position(300, canvas.height+30)
+    this.timeSelect.position(20, canvas.height+70)
 
     jsonData.time.forEach(element => {
         this.timeSelect.option(new Date(element * 1000).toUTCString().slice(5))
@@ -104,28 +104,29 @@ newPoints.prototype.showTimeSelection = function () {
 }
 
 newPoints.prototype.showInputBox = function (){
-    this.trajInput = this.p5.createInput()
-    this.trajInput.position(10, canvas.height+30);
+    this.trajInput = document.querySelector('#input')
+    // this.trajInput.position(10, canvas.height+30);
 
-    trajInputButton = this.p5.createButton('Show');
-    trajInputButton.position(this.trajInput.x+this.trajInput.width, canvas.height+30);
-    trajInputButton.mousePressed(() => {
+    trajInputButton = document.querySelector('#show')
+    // trajInputButton.position(this.trajInput.x+this.trajInput.width, canvas.height+30);
+    trajInputButton.onclick = () => {
         if(this.trajInput.value() != 'all')
             this.currentTraj = int(this.trajInput.value());
         else
             this.currentTraj = 'all';
         this.plotPoints();
-    })
+    }
 }
 
 newPoints.prototype.showAnimateButton = function () {
-    this.animeButt = this.p5.createButton('All Traj Animate');
-    this.animeButt.position(500, canvas.height+30);
-    this.animeButt.mousePressed(() => {
+    this.animeButt = document.querySelector('#animate')
+    // this.animeButt.position(500, canvas.height+30);
+
+    this.animeButt.onclick = () => {
         this.animeInterval = setInterval(() => {
             this.showAnimation(0);
         }, 100);
-    });
+    };
 }
 
 newPoints.prototype.showAnimation = function () {

@@ -3,13 +3,16 @@ let nPts, postProc, leftCanvas, rightCanvas;
 leftCanvas = new p5(
     (lCanvas) => {
         lCanvas.setup = function(){
-            let canvWidth = 900
-            let canvHeight = 850
+            let canvWidth = innerWidth*0.5
+            let canvHeight = innerHeight*0.8
 
             canvas = lCanvas.createCanvas(canvWidth, canvHeight);
 
+            
             canvas.position(0, 0)
             initMap(canvas);
+            //canvas.style('margin',48)
+            canvas.style('border', '5px solid #3a3a3a')
 
             nPts = new newPoints()
             nPts.showTimeSelection();
@@ -23,7 +26,7 @@ leftCanvas = new p5(
             });
 
             lCanvas.frameRate(120);
-            lCanvas.fill(200, 100, 100);
+            lCanvas.fill('#3a3a3a');
         }
 
         lCanvas.draw = function(){
@@ -48,11 +51,12 @@ rightCanvas = new p5(
         let lup = false;
 
         rCanvas.setup = function(){
-            let  canvWidth = 900, canvHeight = 850;
+            let  canvWidth = innerWidth*0.5, canvHeight = innerHeight*0.8;
             canvas = rCanvas.createCanvas(canvWidth, canvHeight)
-            canvas.position(950, 10)
-            rCanvas.background(200)
+            canvas.position(innerWidth*0.5, 0)
+            canvas.style('border', '5px solid #3a3a3a')
 
+            // rCanvas.background('#3a3a3a')
             // area1 = new searchArea(320, 320, 300, 10)
             // area1.generateFoVs()
             // zz = new zigZagPath(100, 100, 200, 10, 40, 35);
